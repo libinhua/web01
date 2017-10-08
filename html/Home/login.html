@@ -124,35 +124,13 @@
                                 localStorage.clickcount = 1;
                             }
                             // console.log(String(data.Code));
-                            switch (String(data.Code)) {
-
-                                case SizeEnum.UNKNOWN:
-                                    msg = SizeEnum.properties[SizeEnum.UNKNOWN].msg;
-                                    console.log(msg);
-                                    break;
-                                case SizeEnum.PARAMETERERROR:
-                                    msg = SizeEnum.properties[SizeEnum.PARAMETERERROR].msg;
-                                    console.log(msg);
-                                    break;
-                                case SizeEnum.USERNOTEXISTORNOTENABLED:
-                                    msg = SizeEnum.properties[SizeEnum.USERNOTEXISTORNOTENABLED].msg;
-                                    console.log(msg);
-                                    break;
-                                case SizeEnum.USERNAMEORPASSWORDERROR:
-                                    msg = SizeEnum.properties[SizeEnum.USERNAMEORPASSWORDERROR].msg;
-                                    console.log(msg);
-                                    break;
-                                case SizeEnum.COMPANYNOTAUDIT:
-                                    msg = SizeEnum.properties[SizeEnum.COMPANYNOTAUDIT].msg;
-                                    console.log(msg);
-                                    break;
-                                case SizeEnum.IDENTIFYINGCODEERROR:
-                                    $(".display").show();
-                                    msg = SizeEnum.properties[SizeEnum.IDENTIFYINGCODEERROR].msg;
-                                    console.log(msg);
-
-                                    break;
-
+                            for(x in SizeEnum){
+                                
+                                if (SizeEnum[x]===String(data.Code)){
+                                    var value=SizeEnum[x];
+                                    console.log(SizeEnum.properties[value].msg);
+                                }
+                                
                             }
                         }
 
@@ -194,6 +172,14 @@
                     if (data != null) {
                         $("#kaptcha").attr("src", "data:image/jpeg;base64," + data.data.Image + "");
                     }
+                    for(x in SizeEnum){
+                                
+                        if (SizeEnum[x]===String(data.Code)){
+                            var value=SizeEnum[x];
+                            console.log(SizeEnum.properties[value].msg);
+                        }
+                        
+                    }
                 },
                 error: function () {
 
@@ -213,18 +199,7 @@
 
         }
 
-        load();
-        function load(){
-
-           for(x in SizeEnum){
-
-                if (SizeEnum[x]==="-1103"){
-                    var value=SizeEnum[x];
-                    console.log(SizeEnum.properties[value].msg);
-                }
-                
-           }
-        }
+        
     </script>
 </body>
 
