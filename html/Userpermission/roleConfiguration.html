@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>角色权限配置</title>
+		<link rel="stylesheet" type="text/css" href="../../css/UserpermissionCss/roleConfiguration.css" />
+	</head>
+
+	<body>
+		<div class="roleConfiguration">
+			<div class="roleConfiguration-row">
+				<!-- Main content -->
+				<section class="content">
+					<div class="row">
+						<div class="col-md-3">
+							<p class="btn btn-primary btn-block margin-bottom">订单列表</p>
+							<div class="box-header with-border">
+								<div class="has-feedback">
+									<input type="text" class="form-control input-sm" placeholder="输入关键字搜索">
+									<span class="glyphicon glyphicon-search form-control-feedback"></span>
+								</div>
+							</div>
+							<div class="box box-solid">
+								<div class="box-body no-padding roleList">
+									<ul class="nav nav-pills nav-stacked roleList-ul">
+										<li class="roleActive">管理员</li>
+										<li>超级管理员</li>
+										<li>第三方开发者</li>
+										<li></li>
+										<li></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</div>
+								<!-- /.box-body -->
+							</div>
+
+						</div>
+						<!-- /.col -->
+						<div class="col-md-9">
+							<div class="box box-primary">
+								<div class="box-header with-border">
+									<button type="button" style="margin-right:10px;" class="btn btn-sm btn-default" onclick="">
+				                                                           保存
+				                    </button>
+
+									<button type="button"  class="btn btn-sm btn-default" id="btn_add">
+				                                                            获取新列表
+				                    </button>
+									<!-- /.box-tools -->
+								</div>
+								<!-- /.box-header -->
+								<div class="box-body no-padding">
+									<div class="roleTable">
+										<div class="roleTableOne">
+											<div class="tHead">
+												<div class="tHead-th">
+													<span class="pull-right-container">
+										               <i class="fa fa-play"></i>
+										            </span>
+													<label><input type="checkbox" />用户管理中心</label>
+												</div>
+											</div>
+											<div class="tBody">
+												<ul class="tContent">
+													<li class="tContentOne">
+														<div class="tContentOne-head">
+															<div class="tContentOne-head-th">
+																<span class="pull-right-container">
+													               <i class="fa fa-play"></i>
+													            </span>
+																<label><input type="checkbox" />公司管理</label>
+															</div>
+														</div>
+														<ul class="tContentOne-body clear">
+															<li class=""><label><input type="checkbox" />公司</label></li>
+															<li class=""><label><input type="checkbox" />查看</label></li>
+															<li class=""><label><input type="checkbox" />添加</label></li>
+															<li class=""><label><input type="checkbox" />修改</label></li>
+															<li class=""><label><input type="checkbox" />删除</label></li>
+														</ul>
+													</li>
+													<li class="tContentOne">
+														<div class="tContentOne-head">
+															<div class="tContentOne-head-th">
+																<span class="pull-right-container">
+													               <i class="fa fa-play"></i>
+													            </span>
+																<label><input type="checkbox" />角色管理</label>
+															</div>
+														</div>
+														<ul class="tContentOne-body clear">
+															<li class=""><label><input type="checkbox" />公司</label></li>
+															<li class=""><label><input type="checkbox" />查看</label></li>
+															<li class=""><label><input type="checkbox" />添加</label></li>
+														</ul>
+													</li>
+													<li class="tContentOne">
+														<div class="tContentOne-head">
+															<div class="tContentOne-head-th">
+																<span class="pull-right-container">
+													               <i class="fa fa-play"></i>
+													            </span>
+																<label><input type="checkbox" />用户管理</label>
+															</div>
+														</div>
+														<ul class="tContentOne-body clear">
+															<li class=""><label><input type="checkbox" />用户</label></li>
+														</ul>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- /.table -->
+										<div class="roleTableOne">
+											<div class="tHead">
+												<div class="tHead-th">
+													<span class="pull-right-container">
+										               <i class="fa fa-play"></i>
+										            </span>
+													<label><input type="checkbox" />开发者管理系统</label>
+												</div>
+											</div>
+											<div class="tBody">
+												<ul class="tContent">
+													<li class="tContentOne">
+														<div class="tContentOne-head">
+															<div class="tContentOne-head-th">
+																<span class="pull-right-container">
+													               <i class="fa fa-play"></i>
+													            </span>
+																<label><input type="checkbox" />区域管理</label>
+															</div>
+														</div>
+														<ul class="tContentOne-body clear">
+															<li class=""><label><input type="checkbox" />区域</label></li>
+														</ul>
+													</li>
+												</ul>
+											</div>
+										</div>
+										
+									</div>
+									<!-- /.mail-box-messages -->
+								</div>
+								<!-- /.box-body -->
+
+							</div>
+							<!-- /. box -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</section>
+				<!-- /.content -->
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				//树形列表收缩、展开事件
+				$('.roleTable').on('click','.pull-right-container',function(){
+					if($(this).find('i').hasClass('pull-trun')){
+						$(this).parent().parent().siblings().slideDown();
+						$(this).find('i').removeClass('pull-trun');
+					}else{
+						$(this).parent().parent().siblings().slideUp();
+						$(this).find('i').addClass('pull-trun');
+					}
+					
+				})
+			})
+		</script>
+	</body>
+</html>

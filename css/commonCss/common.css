@@ -1,0 +1,54 @@
+
+body, h1, h2, h3,h4,h5, p, dl, dd, ol, ul, th, td, form, fieldset, input, button, textarea {
+    margin: 0;
+    padding: 0;
+}
+html {
+    word-wrap: break-word;
+    -webkit-text-size-adjust: none;
+    -webkit-backface-visibility: hidden;
+}
+h1, h2, h3, h4, h5, h6,b {
+    font-size: 100%;
+    font-weight: normal;
+}
+ol, ul ,li{
+    list-style: none
+}
+table {
+    border-collapse: collapse;
+    empty-cells: show;
+    font-size: inherit;
+    border-spacing: 0
+}
+fieldset, img {
+    border: 0
+}
+cite, em, s, i, b {
+    font-style: normal
+}
+input, button, textarea, select {
+    font-size: 100%
+}
+li, img, label, input {
+    vertical-align: middle
+}
+var {
+    font-style: normal
+}
+ins {
+    text-decoration: none
+}
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+.clear:after{
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix{overflow:hidden;_zoom:1;}
+

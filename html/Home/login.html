@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云魔方-登录</title>
+    <!-- <link rel="shortcut icon" href="~/static/favicon.ico"> -->
+    <link rel="stylesheet" type="text/css" href="../../css/commonCss/common.css" />
+    <link href="../../css/commonCss/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/commonCss/bootstrapValidator.min.css" />
+    <!-- <link href="../../css/commonCss/font-awesome.css" rel="stylesheet"> -->
+    <link href="../../css/commonCss/animate.css" rel="stylesheet">
+    <link href="../../css/commonCss/style.css" rel="stylesheet">
+    <link href="../../css/homeCss/login.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+    <script src="../../js/commonJs/jquery.min.js"></script>
+    <script src="../../js/commonJs/bootstrap.min.js"></script>
+    <script src="../../js/commonJs/bootstrapValidator.min.js"></script>
+
+
+    <script src="../../js/commonJs/myValidadator.js"></script>
+    <script src="../../js/commonJs/guid.js"></script>
+    <script src="../../js/commonJs/interface.js"></script>
+    <script src="../../js/enum/common-enum.js"></script>
+    <style>
+        .display {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown ">
+        <div class="login">
+            <div class="loginName">
+                <h2>云魔方</h2>
+            </div>
+            <br />
+            <h4 style="color: red;"></h4>
+
+
+            <div id="dlg_form" class="m-t loginMain">
+                <div class="form-group">
+
+                    <input type="text" name="UserName" id="UserName" value="admin" class="form-control" placeholder="请输入用户名" data-checkid="LoginId"
+                        data-check="notnull" />
+                </div>
+                <div class="form-group">
+                    <input type="password" name="Password" id="Password" value="123" class="form-control" placeholder="请输入密码" data-checkid="Password"
+                        data-check="notnull" />
+                </div>
+                <div class="form-group loginCode clear display">
+                    <div class="loginCode-number">
+                        <input class="form-control" type="text" name="IdentifyingCode" id="IdentifyingCode" value="" placeholder="验证码" data-checkid="CheckCode"
+                            data-check="notnull" />
+                    </div>
+                    <div class="loginCode-img">
+                        <img  id="kaptcha" onclick="getCode()" src="" style="width:100%;height:31px;cursor:pointer;" />
+                    </div>
+                </div>
+                <div class="form-group loginMethod clear">
+                    <div class="loginMethod-register">
+                        <button type="button" onclick="register()" class="btn btn-primary block m-b" data-checkid="register" data-check="null">注册</button>
+                    </div>
+                    <div class="loginMethod-login">
+
+                        <button type="button" onclick="login()" class="btn btn-primary block m-b" data-checkid="Login" data-check="null">登 录</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var msg = "";
+        function login() {
+            zy();
+            $('#dlg_form').bootstrapValidator('validate');
+            if ($('#dlg_form').data('bootstrapValidator').isValid()) {
+                var username = $("#UserName").val();
+                var password = $("#Password").val();
+                var identifyingCode = $("#IdentifyingCode").val();
+
+                var obj2 = {
+                    UserName: username,
+                    Password: password,
+                    IdentifyingCode: identifyingCode
+
+                };
+                var obj = getparam("/User/Login", "1", JSON.stringify(obj2));
+
+                $.ajax({
+                    beforeSend: function (request) {
+                        // if (localStorage.clickcount >= 2) {
+                        var uid = localStorage.uid;
+                        console.log(uid);
+                        request.setRequestHeader("uid", uid);
+                        // }
+
+                    },
+                    type: "POST",
+                    url: url(),
+                    data: obj,
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Code === "0") {
+                            localStorage.removeItem("clickcount");
+                            // window.location.href = "/html/home/index.html";
+                        }
+                        else {
+                            if (localStorage.clickcount) {
+                                localStorage.clickcount = Number(localStorage.clickcount) + 1;
+                            } else {
+                                localStorage.clickcount = 1;
+                            }
+                            // console.log(String(data.Code));
+                            switch (String(data.Code)) {
+
+                                case SizeEnum.UNKNOWN:
+                                    msg = SizeEnum.properties[SizeEnum.UNKNOWN].msg;
+                                    console.log(msg);
+                                    break;
+                                case SizeEnum.PARAMETERERROR:
+                                    msg = SizeEnum.properties[SizeEnum.PARAMETERERROR].msg;
+                                    console.log(msg);
+                                    break;
+                                case SizeEnum.USERNOTEXISTORNOTENABLED:
+                                    msg = SizeEnum.properties[SizeEnum.USERNOTEXISTORNOTENABLED].msg;
+                                    console.log(msg);
+                                    break;
+                                case SizeEnum.USERNAMEORPASSWORDERROR:
+                                    msg = SizeEnum.properties[SizeEnum.USERNAMEORPASSWORDERROR].msg;
+                                    console.log(msg);
+                                    break;
+                                case SizeEnum.COMPANYNOTAUDIT:
+                                    msg = SizeEnum.properties[SizeEnum.COMPANYNOTAUDIT].msg;
+                                    console.log(msg);
+                                    break;
+                                case SizeEnum.IDENTIFYINGCODEERROR:
+                                    $(".display").show();
+                                    msg = SizeEnum.properties[SizeEnum.IDENTIFYINGCODEERROR].msg;
+                                    console.log(msg);
+
+                                    break;
+
+                            }
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log("错误信息" + errorThrown);
+                    }
+                });
+            }
+            else {
+                console.log("填写信息不齐全！");
+            }
+        }
+
+        function register() {
+            window.location.href = "register.html"
+        }
+
+        // getCode();
+        //刷新验证码
+        function getCode() {
+
+            zy();
+
+            var uid = uuid(8, 16) // "098F4D35"
+            localStorage.uid = uid;
+
+            var obj = getparam("/User/GetImage", "1", "");
+            $.ajax({
+                beforeSend: function (request) {
+                    request.setRequestHeader("uid", uid);
+                },
+                type: "post",
+                url: url(),
+                data: obj,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded",
+                success: function (data) {
+                    if (data != null) {
+                        $("#kaptcha").attr("src", "data:image/jpeg;base64," + data.data.Image + "");
+                    }
+                },
+                error: function () {
+
+                    console.log("异常啦！！！");
+                }
+            });
+        };
+
+        function zy() {
+
+            if (localStorage.clickcount >= 2) {
+
+                $(".display").show();
+
+            }
+            // $(".display").show();
+
+        }
+
+        load();
+        function load(){
+
+           for(x in SizeEnum){
+
+                if (SizeEnum[x]==="-1103"){
+                    var value=SizeEnum[x];
+                    console.log(SizeEnum.properties[value].msg);
+                }
+                
+           }
+        }
+    </script>
+</body>
+
+</html>

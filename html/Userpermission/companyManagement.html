@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>公司管理</title>
+		<link rel="stylesheet" type="text/css" href="../../css/UserpermissionCss/companyManagement.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/zTreeStyle/zTreeStyle.css"/>
+	</head>
+
+	<body>
+		<div class="companyManagement">
+			<div class="companyManagement-row">
+				<!-- Main content -->
+				<section class="content">
+					<div class="row">
+						<div class="col-md-5">
+							<div class="box box-info"  style="height: 360px;">
+								<ul id="treeDemo" class="ztree"></ul>
+							</div>
+						</div>
+						<!-- /.col -->
+						<div class="col-md-7">
+							<div class="box box-info">
+					            <div class="box-header with-border">
+					              <h3 class="box-title">公司信息</h3>
+					              <button type="button" class="btn btn-sm btn-default pull-right" style="margin-right: 20px;">
+				                                                         提交
+				                   </button>
+					            </div>
+					            <!-- /.box-header -->
+					            <!-- form start -->
+					            <form class="form-horizontal">
+					              <div class="box-body">
+					                <div class="form-group">
+					                  <label for="inputname" class="col-sm-3 control-label">*公司名称</label>
+					                  <div class="col-sm-9">
+					                    <input type="text" class="form-control" id="inputname" placeholder="名称">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label for="inputPassword" class="col-sm-3 control-label">*管理员账号</label>
+					                  <div class="col-sm-9">
+					                    <input type="text" class="form-control" id="inputPassword" placeholder="账号">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label for="inputEmail" class="col-sm-3 control-label">*邮箱</label>
+					                  <div class="col-sm-9">
+					                    <input type="email" class="form-control" id="inputEmail" placeholder="邮箱">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label for="inputCode" class="col-sm-3 control-label">*组织机构代码</label>
+					                  <div class="col-sm-9">
+					                    <input type="text" class="form-control" id="inputCode" placeholder="例:200644235524X">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label for="inputNum" class="col-sm-3 control-label">*合同号</label>
+					                  <div class="col-sm-9">
+					                    <input type="text" class="form-control" id="inputNum" placeholder="例:2017092645">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label for="inputPerson" class="col-sm-3 control-label">*联系人</label>
+					                  <div class="col-sm-9">
+					                    <input type="text" class="form-control" id="inputPerson" placeholder="jsaon">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label for="inputTel" class="col-sm-3 control-label">*联系电话</label>
+					                  <div class="col-sm-9">
+					                    <input type="text" class="form-control" id="inputTel" placeholder="15524874458">
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label class="col-sm-3 control-label">设备信息</label>
+					                  <div class="col-sm-9"> </div>
+					                </div>
+					                <div class="form-textarea">
+					                  <div class="textarea-content">
+					                    <textarea rows="10"></textarea>
+					                  </div>
+					                </div>
+              					</div>
+				              <!-- /.box-body -->
+				            </form>
+				          </div>
+          					<!-- /.box -->
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+				</section>
+				<!-- /.content -->
+			</div>
+		</div>
+		<script type="text/javascript">
+		
+		//		zTree初始化
+			var setting = {
+			view: {
+				addHoverDom: addHoverDom,
+				removeHoverDom: removeHoverDom,
+				selectedMulti: false
+			},
+			edit: {
+				enable: true,
+				editNameSelectAll: true,
+				showRemoveBtn: showRemoveBtn,
+				showRenameBtn: showRenameBtn
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				beforeEditName: beforeEditName,
+				beforeRemove: beforeRemove,
+				beforeRename: beforeRename,
+				onRemove: onRemove,
+				onRename: onRename
+			}
+		};
+		//zTree结构初始化
+        //icon为图标配置项
+		var zNodes =[
+			{ id:1, pId:0, name:"道控技术有限公司", open:true,iconOpen:"../../images/diy/1_open.png", iconClose:"../../images/diy/1_close.png"},
+			{ id:11, pId:1, name:"企鹅科技有限公司",open:true,icon:"../../images/diy/2.png"},
+			{ id:111, pId:11, name:"企鹅上海分公司",icon:"../../images/diy/2.png"},
+			{ id:12, pId:1, name:"大疆科技有限公司",icon:"../../images/diy/2.png"},
+			{ id:13, pId:1, name:"王者荣耀技术有限公司",icon:"../../images/diy/2.png"},
+			{ id:2, pId:0, name:"苹果科技有限公司", open:true,iconOpen:"../../images/diy/1_open.png", iconClose:"../../images/diy/1_close.png"},
+			{ id:21, pId:2, name:"企鹅科技有限公司",open:true,icon:"../../images/diy/2.png"},
+			{ id:211, pId:21, name:"滴滴科技有限公司",icon:"../../images/diy/2.png"},
+			{ id:22, pId:2, name:"膜拜科技有限公司",icon:"../../images/diy/2.png"},
+			{ id:23, pId:2, name:"ofo科技有限公司",icon:"../../images/diy/2.png"},
+		];
+		var log, className = "dark";
+		function beforeDrag(treeId, treeNodes) {
+			return false;
+		}
+		function beforeEditName(treeId, treeNode) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			zTree.selectNode(treeNode);
+			setTimeout(function() {
+				if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
+					setTimeout(function() {
+						zTree.editName(treeNode);
+					}, 0);
+				}
+			}, 0);
+			return false;
+		}
+		function beforeRemove(treeId, treeNode) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			zTree.selectNode(treeNode);
+			return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+		}
+		function onRemove(e, treeId, treeNode) {
+			showLog("[ "+getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+		}
+		function beforeRename(treeId, treeNode, newName, isCancel) {
+			className = (className === "dark" ? "":"dark");
+			showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+			if (newName.length == 0) {
+				setTimeout(function() {
+					var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+					zTree.cancelEditName();
+					alert("节点名称不能为空.");
+				}, 0);
+				return false;
+			}
+			return true;
+		}
+		function onRename(e, treeId, treeNode, isCancel) {
+			showLog((isCancel ? "<span style='color:red'>":"") + "[ "+getTime()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
+		}
+		function showRemoveBtn(treeId, treeNode) {
+			return !treeNode.isFirstNode;
+		}
+		function showRenameBtn(treeId, treeNode) {
+			return !treeNode.isLastNode;
+		}
+		function showLog(str) {
+			if (!log) log = $("#log");
+			log.append("<li class='"+className+"'>"+str+"</li>");
+			if(log.children("li").length > 8) {
+				log.get(0).removeChild(log.children("li")[0]);
+			}
+		}
+		function getTime() {
+			var now= new Date(),
+			h=now.getHours(),
+			m=now.getMinutes(),
+			s=now.getSeconds(),
+			ms=now.getMilliseconds();
+			return (h+":"+m+":"+s+ " " +ms);
+		}
+
+		var newCount = 1;
+		function addHoverDom(treeId, treeNode) {
+			var sObj = $("#" + treeNode.tId + "_span");
+			if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+			var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+				+ "' title='add node' onfocus='this.blur();'></span>";
+			sObj.after(addStr);
+			var btn = $("#addBtn_"+treeNode.tId);
+			if (btn) btn.bind("click", function(){
+				var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+				zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+				return false;
+			});
+		};
+		function removeHoverDom(treeId, treeNode) {
+			$("#addBtn_"+treeNode.tId).unbind().remove();
+		};
+		function selectAll() {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+			zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+		}
+		
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			$("#selectAll").bind("click", selectAll);
+		});
+		</script>
+	</body>
+</html>

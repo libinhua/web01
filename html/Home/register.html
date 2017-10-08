@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>云魔方-注册</title>
+	<link rel="shortcut icon" href="~/static/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../../css/commonCss/common.css" />
+	<link href="../../css/commonCss/bootstrap.min.css" rel="stylesheet">
+	<link href="../../css/commonCss/bootstrapValidator.min.css" />
+	<!-- <link href="../../css/commonCss/font-awesome.css" rel="stylesheet"> -->
+	<link href="../../css/commonCss/animate.css" rel="stylesheet">
+	<link href="../../css/commonCss/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../../css/homeCss/register.css" />
+	<link href="../../css/homeCss/login.css" rel="stylesheet" />
+	<script type="text/javascript">
+		if (window.top !== window.self) {
+			window.top.location = window.location;
+		}
+	</script>
+
+	<script src="../../js/commonJs/jquery.min.js"></script>
+	<script src="../../js/commonJs/bootstrap.min.js"></script>
+	<!--bootstrap表单验证 -->
+	<script src="../../js/commonJs/bootstrapValidator.min.js"></script>
+
+	<!-- 封装方法 -->
+	<script src="../../js/commonJs/myValidadator.js"></script>
+	<script src="../../js/commonJs/guid.js"></script>
+	<script src="../../js/commonJs/interface.js"></script>
+	<script src="../../js/enum/common-enum.js"></script>
+	<script src="../../js/commonJs/obtain.object.js"></script>
+</head>
+
+<body class="gray-bg">
+	<div class="register-box  text-center loginscreen  animated fadeInDown ">
+		<div class="register">
+			<div class="registerName">
+				<h2>云魔方注册</h2>
+			</div>
+			<div id="dlg_form" class="m-t registerMain">
+				<div class="registerMain-box">
+					<div class="row reg-list">
+						<div class="col-sm-6 clear reg-all">
+							<p class="reg-name">*用户账号</p>
+							<input class="reg-input v" type="text" name="UserName" />
+							<!-- <p class="reg-error">请填写用户账号</p> -->
+						</div>
+						<div class="col-sm-6 reg-all  reg-code">
+							<p class="reg-name">*邮箱</p>
+							<input class="reg-input  v" type="text" name="Email" id="Email" />
+							<p class="reg-getCode" oclick="obtainCode();">获取验证码</p>
+							<!-- <p class="reg-error">邮件已发送</p> -->
+						</div>
+					</div>
+					<div class="row reg-list">
+						<div class="col-sm-6 clear reg-all">
+							<p class="reg-name">*公司名称</p>
+							<input class="reg-input v" type="text" name="CompanyName" value="" />
+							<!-- <p class="reg-error">请填写用户账号</p> -->
+						</div>
+						<div class="col-sm-6 reg-all">
+							<p class="reg-name">*验证码</p>
+							<input class="reg-input v" type="text" name="Code" value="" />
+							<!-- <p class="reg-error">邮件已发送</p> -->
+						</div>
+					</div>
+					<div class="row reg-list">
+						<div class="col-sm-6 clear reg-all">
+							<p class="reg-name">*组织机构代码</p>
+							<input class="reg-input v" type="text" name="CompanyCode" value="" />
+							<!-- <p class="reg-error">请填写用户账号</p> -->
+						</div>
+						<div class="col-sm-6 reg-all">
+							<p class="reg-name">*合同号</p>
+							<input class="reg-input v" type="text" name="ContractNumber" value="" />
+							<!-- <p class="reg-error">邮件已发送</p> -->
+						</div>
+					</div>
+					<div class="row reg-list">
+						<div class="col-sm-6 clear reg-all">
+							<p class="reg-name">*联系人</p>
+							<input class="reg-input v" type="text" name="LinkMan" value="" />
+							<!-- <p class="reg-error">联系电话</p> -->
+						</div>
+						<div class="col-sm-6 reg-all">
+							<p class="reg-name">*联系电话</p>
+							<input class="reg-input v" type="text" name="Phone" value="" />
+							<!-- <p class="reg-error">邮件已发送</p> -->
+						</div>
+					</div>
+				</div>
+				<div class="registerMain-msg clear">
+					<div class="msg-name">
+						设备信息
+					</div>
+					<div class="msg-textarea">
+						<textarea name="message" rows="10" cols=""></textarea>
+					</div>
+				</div>
+				<div class="clear registerMain-method">
+					<div class="registerMain-register">
+						<button type="button" onclick="register()" class="btn btn-primary block m-b" data-checkid="register" data-check="null">注册</button>
+					</div>
+					<div class="registerMain-back">
+						<button type="button" onclick="back()" class="btn btn-primary block m-b" data-checkid="Login" data-check="null">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var msg = "";
+		test();
+		function test(){
+			for(var s in SizeEnum)
+			{
+				console.log(s);
+
+			}
+
+		}
+		function register() {
+
+			$('#dlg_form').bootstrapValidator('validate');
+			if ($('#dlg_form').data('bootstrapValidator').isValid()) {
+				var obj = getparam("/User/RegisterUser", "1", getObj());
+				$.ajax({
+					type: "post",
+					url: url(),
+					data: obj,
+					dataType: "json",
+					success: function (data) {
+						switch (String(data.Code)) {
+							case SizeEnum.SUCCESS:
+								msg = SizeEnum.properties[SizeEnum.SUCCESS].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.UNKNOWN:
+								msg = SizeEnum.properties[SizeEnum.UNKNOWN].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.PARAMETERERROR:
+								msg = SizeEnum.properties[SizeEnum.UNKPARAMETERERRORNOWN].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.REGISTERTOOMANY:
+								msg = SizeEnum.properties[SizeEnum.REGISTERTOOMANY].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.REGISTERCODEERROR:
+								msg = SizeEnum.properties[SizeEnum.REGISTERCODEERROR].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.USERNAMEISEXIST:
+								msg = SizeEnum.properties[SizeEnum.USERNAMEISEXIST].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.COMPANYNAMEISEXIST:
+								msg = SizeEnum.properties[SizeEnum.COMPANYNAMEISEXIST].msg;
+								console.log(msg);
+								break;
+							case SizeEnum.COMPANYCODEISEXIST:
+								msg = SizeEnum.properties[SizeEnum.COMPANYCODEISEXIST].msg;
+								console.log(msg);
+								break;
+						}
+					},
+					error: function () {
+
+						console.log("异常");
+					}
+
+				});
+
+			}
+			else {
+				console.log("信息填写不齐全");
+			}
+
+		}
+
+		function obtainCode() {
+			var email = $("#Email").val();
+			var obj2 = {
+				Email: email
+			}
+			var obj = getparam("/User/SendCode", "1", JSON.stringify(obj2));
+			$.ajax({
+				type: "post",
+				url: url(),
+				data: obj,
+				dataType: "json",
+				success: function (data) {
+
+				
+					switch (String(data.Code)) {
+						case SizeEnum.SUCCESS:
+							msg = SizeEnum.properties[SizeEnum.SUCCESS].msg;
+							console.log(msg);
+							break;
+						case SizeEnum.UNKNOWN:
+							msg = SizeEnum.properties[SizeEnum.UNKNOWN].msg;
+							console.log(msg);
+							break;
+						case SizeEnum.PARAMETERERROR:
+							msg = SizeEnum.properties[SizeEnum.UNKPARAMETERERRORNOWN].msg;
+							console.log(msg);
+							break;
+					}
+				},
+				error: function () {
+
+					console.log("异常");
+				}
+
+			});
+
+		}
+	</script>
+</body>
+
+</html>
